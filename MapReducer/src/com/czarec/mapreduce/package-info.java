@@ -5,4 +5,4 @@
  * @author User
  *
  */
-package mr;
+package com.czarec.mapreduce;
