@@ -362,6 +362,19 @@ public class MapReduce {
 		return valid;
 	}
 
+	private static void fileOutput(String out, FileWriter fw)
+	{
+		//output to the file
+		try
+		{
+			fw.write(out);
+			System.out.print(out);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 }
 
 
