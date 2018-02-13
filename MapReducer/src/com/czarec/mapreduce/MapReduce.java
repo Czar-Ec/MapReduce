@@ -274,6 +274,27 @@ public class MapReduce {
 	 */
 	public static void countFlights()
 	{
+		//map all the values
+		Map map = new Map();
+		
+		for(int i = 0; i < flightList.size(); i++)
+		{
+			//map the origin airport
+			//calculating the flight FROM each airport
+			map.put(flightList.get(i));
+		}
+		
+		//debug kvpairs
+		/*ArrayList<KeyValuePair1> kv1Debug = new ArrayList<>();
+		kv1Debug = map.get();
+		for(int i = 0; i < kv1Debug.size(); i++)
+		{
+			System.out.println(kv1Debug.get(i).toString());
+		}*/
+		
+		//implement a combiner
+		Combiner c = new Combiner(map.get());
+		
 		
 	}
 	
