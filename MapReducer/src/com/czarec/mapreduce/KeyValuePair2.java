@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class KeyValuePair2 extends KeyValuePair1 {
 	
 	//list of values
-	private ArrayList<Integer> valueList = new ArrayList<Integer>();
+	private ArrayList<Object> valueList = new ArrayList<Object>();
 	
 	/**
 	 * KeyValuePair2
@@ -27,7 +27,7 @@ public class KeyValuePair2 extends KeyValuePair1 {
 	 * @param key
 	 * @param values
 	 */
-	KeyValuePair2(Object key, ArrayList<Integer> values)
+	KeyValuePair2(Object key, ArrayList<Object> values)
 	{
 		this.key = key;
 		valueList = values;
@@ -43,7 +43,7 @@ public class KeyValuePair2 extends KeyValuePair1 {
 		valueList.add(1);
 	}
 	
-	public ArrayList<Integer> getValues()
+	public ArrayList<Object> getValues()
 	{
 		return valueList;
 	}

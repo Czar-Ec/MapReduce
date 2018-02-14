@@ -4,7 +4,7 @@ public class KeyValuePair1 {
 	
 	//stores the key and the value of the key
 	protected Object key;
-	protected int value;
+	protected Object value;
 	
 	/**
 	 * KeyValuePair1
@@ -19,7 +19,7 @@ public class KeyValuePair1 {
 	 * @param key
 	 * @param value
 	 */
-	KeyValuePair1(Object key, int value)
+	KeyValuePair1(Object key, Object value)
 	{
 		this.key = key;
 		this.value = value;
@@ -39,7 +39,7 @@ public class KeyValuePair1 {
 	 * 
 	 * @return value
 	 */
-	public int getValue() { return value; }
+	public Object getValue() { return value; }
 	
 	public String toString()
 	{

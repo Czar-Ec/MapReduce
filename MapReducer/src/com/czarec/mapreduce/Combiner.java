@@ -43,7 +43,7 @@ public class Combiner {
 			else
 			{
 				//make the second kv pair
-				KeyValuePair2 kv2 = new KeyValuePair2(kv.get(i), new ArrayList<Integer>(Arrays.asList(1)));
+				KeyValuePair2 kv2 = new KeyValuePair2(kv.get(i), new ArrayList<Object>(Arrays.asList(1)));
 				keyValues.add(kv2);
 			}
 			

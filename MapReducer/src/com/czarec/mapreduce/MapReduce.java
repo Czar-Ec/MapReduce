@@ -68,7 +68,7 @@ public class MapReduce {
 			
 			//debug values for now
 			inputFile1 = "res\\AComp_Passenger_data.csv";
-			inputFile2 = "res\\Top30_airports_LatLong.csv";
+			inputFile2 = "res\\Top30_airports_LatLong.csv  ";
 			outputFile = "res\\output.txt";
 			
 			
@@ -245,7 +245,7 @@ public class MapReduce {
 		
 		//run the tasks
 		try
-		{
+		{			
 			countFlights();
 			
 			flightList();
