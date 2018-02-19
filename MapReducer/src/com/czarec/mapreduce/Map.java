@@ -9,7 +9,7 @@ public class Map {
 	 * array list stores the key in one part and the value of the key in the other
 	 * meaning the array list can store arrays of 2
 	 */
-	ArrayList<KeyValuePair1>keyValues = new ArrayList<KeyValuePair1>();
+	ArrayList<Object>keyValues = new ArrayList<Object>();
 	
 	
 	/**
@@ -24,17 +24,26 @@ public class Map {
 	 * put
 	 * adds a value to the map list
 	 */
-	public void put(Object key)
+	public void put(Object key, Object value)
 	{
-		//new key value pair
-		//all keys get given a value of 1
-		KeyValuePair1 kv = new KeyValuePair1(key, 1);
-		
-		//add the key value to the key values list
-		keyValues.add(kv);
+		//check if the array is empty
+		if(keyValues.size() > 0)
+		{
+			//if the value doesn't exist in the array, add it as a kv1
+			if(!keyValues.contains(new KeyValuePair1(key, value)))
+			{
+				
+			}
+		}
+		else
+		{
+			//add the first value to the list
+			KeyValuePair1 kv = new KeyValuePair1(key, value);
+			keyValues.add(kv);
+		}
 	}
 	
-	public ArrayList<KeyValuePair1> get()
+	public ArrayList<Object> get()
 	{
 		return keyValues;
 	}

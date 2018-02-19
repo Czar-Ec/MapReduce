@@ -29,25 +29,11 @@ public class Combiner {
 	 * 
 	 * @param kv
 	 */
-	Combiner(ArrayList<KeyValuePair1> kv)
+	Combiner(ArrayList<Object> kv)
 	{
-		//process the key value pairs into another set of key values
 		for(int i = 0; i < kv.size(); i++)
 		{
-			//check if the key is already in the keyValues array list			
-			if(keyValues.contains(kv.get(i).getKey()))
-			{
-				//add a value to its value array
-				keyValues.get(i).addValue();
-			}
-			else
-			{
-				//make the second kv pair
-				KeyValuePair2 kv2 = new KeyValuePair2(kv.get(i), new ArrayList<Object>(Arrays.asList(1)));
-				keyValues.add(kv2);
-			}
-			
-			System.out.println(keyValues.get(i).toString());
+			//System.out.println(kv.get(i).toString());
 		}
 	}
 }

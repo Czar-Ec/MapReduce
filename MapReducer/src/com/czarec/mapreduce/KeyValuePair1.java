@@ -43,7 +43,6 @@ public class KeyValuePair1 {
 	
 	public String toString()
 	{
-		return "Key:\n" + key + "\n" +
-				"Value: " + value + "\n";
+		return key + "\n" + value + "\n";
 	}
 }

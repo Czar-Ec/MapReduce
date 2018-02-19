@@ -37,10 +37,10 @@ public class KeyValuePair2 extends KeyValuePair1 {
 	 * addValue
 	 * adds a value to the kvPair's value list
 	 */
-	public void addValue()
+	public void addValue(Object o)
 	{
 		//add one more value of 1
-		valueList.add(1);
+		valueList.add(o);
 	}
 	
 	public ArrayList<Object> getValues()
@@ -50,7 +50,6 @@ public class KeyValuePair2 extends KeyValuePair1 {
 	
 	public String toString()
 	{
-		return "Key:\n" + key + "\n" +
-				"Value: " + valueList.size() + "\n";
+		return key + "" + valueList.size() + "\n";
 	}
 }

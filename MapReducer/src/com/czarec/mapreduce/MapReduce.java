@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Main class
@@ -30,15 +31,16 @@ public class MapReduce {
 	//file writing
 	static FileWriter fw;
 	
+	//mapper
+	static Map m = new Map();
+	
 	///////////////////////////////////////////////////////////////////////////////////
 	/*
-	 * arraylist of airports and flights
-	 * the source was very inefficient because it required reading the files multiple 
-	 * times, instead I've stored the read values so files will only be read once 
+	 * store the data chunks for each of the input files
 	 */
 	///////////////////////////////////////////////////////////////////////////////////
-	static ArrayList<Flights> flightList = new ArrayList<Flights>();
-	static ArrayList<Airport> airportList = new ArrayList<Airport>();
+	static List<DataChunk> chunkFile1 = new ArrayList<DataChunk>();
+	static List<DataChunk> chunkFile2 = new ArrayList<DataChunk>();
 	
 	///////////////////////////////////////////////////////////////////////////////////
 	/*
@@ -67,8 +69,8 @@ public class MapReduce {
 			//outputFile = args[2];
 			
 			//debug values for now
-			inputFile1 = "res\\AComp_Passenger_data.csv";
-			inputFile2 = "res\\Top30_airports_LatLong.csv  ";
+			inputFile1 = "res\\passenger.csv";
+			inputFile2 = "res\\airports.csv";
 			outputFile = "res\\output.txt";
 			
 			
@@ -86,91 +88,16 @@ public class MapReduce {
 			System.exit(0);
 		}
 		
-		///////////////////////////////////////////////////////////////////////////////////
-		/*
-		 * read file 1 and store the list of flights as Flight objects
-		 */
-		///////////////////////////////////////////////////////////////////////////////////
-		try 
+		try
 		{
-			//read the file
-			BufferedReader b = new BufferedReader(new FileReader(inputFile1));
+			//partition the data files
+			PartitionedData pd = new PartitionedData(inputFile1, 64);
+			chunkFile1 = pd.getAllChunks();
 			
-			//line buffer
-			String lineBuffer;
-
-			//loop through the entire file
-			int lineCount = 1;
-			while((lineBuffer = b.readLine()) != null)
-			{
-				//debug the line output
-				//System.out.println(lineBuffer);
-				
-				//split the file
-				String[] str = lineBuffer.split(",");
-				
-				//check if the line is missing some values
-				if(str.length >= 6)
-				{
-					//validate values
-					boolean
-					isFlightNumValid = validation(str[0], VALIDATE_FLIGHT_NUM),
-					isPassNumValid = validation(str[1], VALIDATE_PASSENGER_NUM),
-					isDestValid = validation(str[2], VALIDATE_AIRPORT_CODE),
-					isOriginValid = validation(str[3], VALIDATE_AIRPORT_CODE);
-					
-					//if passed all checks, make and add flight to flight list
-					if(isFlightNumValid && isPassNumValid &&
-						isDestValid && isOriginValid)
-					{
-						//create the new flight with the inputs
-						Flights f = new Flights(str[0], str[1], str[2], str[3], str[4], str[5]);
-						
-						//debug
-						//System.out.println(f.toString());
-						
-						//add to flight list
-						flightList.add(f);
-					}
-					else
-					{
-						//print error to console
-						System.out.print("Error in line " + lineCount + " invalid: ");
-						
-						//figure out which error was caused
-						if(!isFlightNumValid)
-							System.out.print("flight_number(" + str[0] + ") ");
-						
-						if(!isPassNumValid)
-							System.out.print("passenger_number(" + str[1] + ") ");
-						
-						if(!isDestValid)
-							System.out.print("destination_airport(" + str[2] + ") ");
-
-						if(!isOriginValid)
-							System.out.print("origin_airport(" + str[3] + ") ");
-						
-						System.out.println("");
-					}
-				}
-				else
-				{
-					//print error to console
-					System.out.println("Error in line " + lineCount + " in file " + inputFile1);
-				}
-				
-				//helps with debugging file
-				lineCount++;
-			}
-			
-			//close file
-			b.close();
-			
-			System.out.println();
-			System.out.println("=============================================================");
-			System.out.println();
+			PartitionedData pd1 = new PartitionedData(inputFile2, 64);
+			chunkFile2 = pd1.getAllChunks();
 		}
-		catch (IOException e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -211,7 +138,7 @@ public class MapReduce {
 						//System.out.println(a.toString());
 						
 						//add to airport list
-						airportList.add(a);
+						//airportList.add(a);
 					}
 					else
 					{
@@ -274,27 +201,36 @@ public class MapReduce {
 	 */
 	public static void countFlights()
 	{
-		//map all the values
-		Map map = new Map();
+		//store unmatched airports
+		ArrayList<Object> unmatchedAirports = new ArrayList<Object>();
 		
-		for(int i = 0; i < flightList.size(); i++)
+		//store the flights
+		ArrayList<Flights> flightList = new ArrayList<Flights>();
+		
+		//thread to map the data - one thread for each chunk
+		for(int i = 0; i < chunkFile1.size(); i++)
 		{
-			//map the origin airport
-			//calculating the flight FROM each airport
-			map.put(flightList.get(i));
+			final int _pos = i;
+			new Thread("Chunk " + i)
+			{				
+				public void run()
+				{
+					//System.out.println("Thread running: " + Thread.currentThread() + "=================================");
+					
+					//convert the data chunks into flights
+					ArrayList<Flights> flights = chunkToFlights(chunkFile1.get(_pos));
+					
+					//Map each flight
+					for(Flights f : flights)
+					{
+						m.put(f.getOriginAirportCode(), f.getFlightID());
+					}
+					
+					//send key pair values into the combiner
+					Combiner c = new Combiner(m.get());
+				}
+			}.start();
 		}
-		
-		//debug kvpairs
-		/*ArrayList<KeyValuePair1> kv1Debug = new ArrayList<>();
-		kv1Debug = map.get();
-		for(int i = 0; i < kv1Debug.size(); i++)
-		{
-			System.out.println(kv1Debug.get(i).toString());
-		}*/
-		
-		//implement a combiner
-		Combiner c = new Combiner(map.get());
-		
 		
 	}
 	
@@ -320,7 +256,7 @@ public class MapReduce {
 	
 	///////////////////////////////////////////////////////////////////////////////////
 	/*
-	 * functions that make the program work i.e. the validation checks
+	 * functions that make the program work e.g. the validation checks
 	 */
 	///////////////////////////////////////////////////////////////////////////////////
 	
@@ -382,7 +318,78 @@ public class MapReduce {
 		
 		return valid;
 	}
+	
+	public static ArrayList<Flights> chunkToFlights(DataChunk dc)
+	{
+		ArrayList<Flights> flights = new ArrayList<Flights>();
+		
+		ArrayList<Object> dcList = dc.getChunk();
+		
+		for(int i = 0; i < dcList.size(); i++)
+		{
+			//split the file
+			String[] str = ((String) dcList.get(i)).split(",");
+			
+			//check if the line is missing some values
+			if(str.length >= 6)
+			{
+				//validate values
+				boolean
+				isFlightNumValid = validation(str[0], VALIDATE_FLIGHT_NUM),
+				isPassNumValid = validation(str[1], VALIDATE_PASSENGER_NUM),
+				isDestValid = validation(str[2], VALIDATE_AIRPORT_CODE),
+				isOriginValid = validation(str[3], VALIDATE_AIRPORT_CODE);
+				
+				//if passed all checks, make and add flight to flight list
+				if(isFlightNumValid && isPassNumValid &&
+					isDestValid && isOriginValid)
+				{
+					//create the new flight with the inputs
+					Flights f = new Flights(str[0], str[1], str[2], str[3], str[4], str[5]);
+					
+					//debug
+					//System.out.println(f.toString());
+					
+					//add to flight list
+					flights.add(f);
+				}
+				else
+				{
+					//print error to console
+					System.out.print("Error in line " + dcList.get(i) + " invalid: ");
+					
+					//figure out which error was caused
+					if(!isFlightNumValid)
+						System.out.print("flight_number(" + str[0] + ") ");
+					
+					if(!isPassNumValid)
+						System.out.print("passenger_number(" + str[1] + ") ");
+					
+					if(!isDestValid)
+						System.out.print("destination_airport(" + str[2] + ") ");
 
+					if(!isOriginValid)
+						System.out.print("origin_airport(" + str[3] + ") ");
+					
+					System.out.println("");
+				}
+			}
+			else
+			{
+				//print error to console
+				System.out.println("Error in line " + dcList.get(i));
+			}
+		}
+		
+		return flights;
+	}
+
+	/**
+	 * fileOutput
+	 * function that allows for printing to the output file
+	 * @param out
+	 * @param fw
+	 */
 	private static void fileOutput(String out, FileWriter fw)
 	{
 		//output to the file
