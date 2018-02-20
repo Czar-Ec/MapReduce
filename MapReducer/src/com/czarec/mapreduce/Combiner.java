@@ -15,7 +15,7 @@ public class Combiner {
 	 * list of key value pairs (2)
 	 * this has the second key value pairs where the values are a list of values
 	 */
-	ArrayList<KeyValuePair2> keyValues = new ArrayList<KeyValuePair2>();
+	ArrayList<Object> keyValues = new ArrayList<Object>();
 	
 	/**
 	 * Combiner
@@ -31,9 +31,19 @@ public class Combiner {
 	 */
 	Combiner(ArrayList<Object> kv)
 	{
-		for(int i = 0; i < kv.size(); i++)
+		keyValues.addAll(kv);
+	}
+	
+	public void printList()
+	{
+		for(int i = 0; i < keyValues.size(); i++)
 		{
-			//System.out.println(kv.get(i).toString());
+			System.out.println(i + " " + keyValues.get(i).toString());
 		}
+	}
+	
+	public void add(ArrayList<Object> kv)
+	{
+		keyValues.addAll(kv);
 	}
 }

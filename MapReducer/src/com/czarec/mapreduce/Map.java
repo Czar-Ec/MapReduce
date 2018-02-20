@@ -27,20 +27,8 @@ public class Map {
 	public void put(Object key, Object value)
 	{
 		//check if the array is empty
-		if(keyValues.size() > 0)
-		{
-			//if the value doesn't exist in the array, add it as a kv1
-			if(!keyValues.contains(new KeyValuePair1(key, value)))
-			{
-				
-			}
-		}
-		else
-		{
-			//add the first value to the list
-			KeyValuePair1 kv = new KeyValuePair1(key, value);
-			keyValues.add(kv);
-		}
+		KeyValuePair1 kv = new KeyValuePair1(key, value);
+		keyValues.add(kv);
 	}
 	
 	public ArrayList<Object> get()

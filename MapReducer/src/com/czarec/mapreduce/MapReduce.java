@@ -31,9 +31,6 @@ public class MapReduce {
 	//file writing
 	static FileWriter fw;
 	
-	//mapper
-	static Map m = new Map();
-	
 	///////////////////////////////////////////////////////////////////////////////////
 	/*
 	 * store the data chunks for each of the input files
@@ -207,30 +204,24 @@ public class MapReduce {
 		//store the flights
 		ArrayList<Flights> flightList = new ArrayList<Flights>();
 		
+		Combiner c = new Combiner();
+		
+		//list of threads
+		ArrayList<Thread> threadList = new ArrayList<Thread>();
+		
 		//thread to map the data - one thread for each chunk
 		for(int i = 0; i < chunkFile1.size(); i++)
 		{
-			final int _pos = i;
-			new Thread("Chunk " + i)
-			{				
-				public void run()
-				{
-					//System.out.println("Thread running: " + Thread.currentThread() + "=================================");
-					
-					//convert the data chunks into flights
-					ArrayList<Flights> flights = chunkToFlights(chunkFile1.get(_pos));
-					
-					//Map each flight
-					for(Flights f : flights)
-					{
-						m.put(f.getOriginAirportCode(), f.getFlightID());
-					}
-					
-					//send key pair values into the combiner
-					Combiner c = new Combiner(m.get());
-				}
-			}.start();
+			MRThread mrt = new MRThread(chunkFile1.get(i), 0);
+			
+			//create and add a new thread to thread list
+			threadList.add(new Thread(mrt));
+			threadList.get(i).start();			
 		}
+		
+		
+		
+		//c.printList();
 		
 	}
 	
@@ -272,7 +263,7 @@ public class MapReduce {
 	 * @param validationType
 	 * @return valid
 	 */
-	private static boolean validation(String str, int validationType)
+	public static boolean validation(String str, int validationType)
 	{
 		//value to be returned
 		boolean valid = false;
@@ -319,6 +310,13 @@ public class MapReduce {
 		return valid;
 	}
 	
+	/**
+	 * chunkToFlights
+	 * takes in datachunks and converts them into a list of flights
+	 * 
+	 * @param dc
+	 * @return flights
+	 */
 	public static ArrayList<Flights> chunkToFlights(DataChunk dc)
 	{
 		ArrayList<Flights> flights = new ArrayList<Flights>();
@@ -356,20 +354,20 @@ public class MapReduce {
 				else
 				{
 					//print error to console
-					System.out.print("Error in line " + dcList.get(i) + " invalid: ");
+					System.out.print("Error in line " + dcList.get(i) + "\t invalid: ");
 					
 					//figure out which error was caused
 					if(!isFlightNumValid)
-						System.out.print("flight_number(" + str[0] + ") ");
+						System.out.print("\tflight_number(" + str[0] + ") ");
 					
 					if(!isPassNumValid)
-						System.out.print("passenger_number(" + str[1] + ") ");
+						System.out.print("\tpassenger_number(" + str[1] + ") ");
 					
 					if(!isDestValid)
-						System.out.print("destination_airport(" + str[2] + ") ");
+						System.out.print("\tdestination_airport(" + str[2] + ") ");
 
 					if(!isOriginValid)
-						System.out.print("origin_airport(" + str[3] + ") ");
+						System.out.print("\torigin_airport(" + str[3] + ") ");
 					
 					System.out.println("");
 				}
