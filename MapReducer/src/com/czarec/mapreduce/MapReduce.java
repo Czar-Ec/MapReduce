@@ -195,8 +195,9 @@ public class MapReduce {
 	 * countFlights
 	 * determines the number of flights from each airport
 	 * also lists the airports that are not used
+	 * @throws InterruptedException 
 	 */
-	public static void countFlights()
+	public static void countFlights() throws InterruptedException
 	{
 		//store unmatched airports
 		ArrayList<Object> unmatchedAirports = new ArrayList<Object>();
@@ -219,9 +220,11 @@ public class MapReduce {
 			threadList.get(i).start();			
 		}
 		
-		
-		
-		//c.printList();
+		//join the threads
+		for(Thread t : threadList)
+		{
+			t.join();
+		}
 		
 	}
 	
