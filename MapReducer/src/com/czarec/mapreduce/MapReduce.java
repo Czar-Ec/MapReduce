@@ -199,32 +199,27 @@ public class MapReduce {
 	 */
 	public static void countFlights() throws InterruptedException
 	{
-		//store unmatched airports
-		ArrayList<Object> unmatchedAirports = new ArrayList<Object>();
-		
-		//store the flights
-		ArrayList<Flights> flightList = new ArrayList<Flights>();
-		
-		Combiner c = new Combiner();
-		
-		//list of threads
+		//add threads to a list
 		ArrayList<Thread> threadList = new ArrayList<Thread>();
 		
-		//thread to map the data - one thread for each chunk
+		//make a new thread for each chunk
 		for(int i = 0; i < chunkFile1.size(); i++)
 		{
 			MRThread mrt = new MRThread(chunkFile1.get(i), 0);
+			Thread t = new Thread(mrt);
+			t.setName("chunk"+i);
+			threadList.add(t);
 			
-			//create and add a new thread to thread list
-			threadList.add(new Thread(mrt));
-			threadList.get(i).start();			
+			//run the thread
+			threadList.get(i).start();
 		}
 		
-		//join the threads
+		//join all threads
 		for(Thread t : threadList)
 		{
 			t.join();
 		}
+		
 		
 	}
 	

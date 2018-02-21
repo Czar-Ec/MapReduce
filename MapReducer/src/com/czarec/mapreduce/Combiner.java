@@ -38,7 +38,7 @@ public class Combiner {
 	{
 		for(int i = 0; i < keyValues.size(); i++)
 		{
-			System.out.println(i + " " + keyValues.get(i).toString());
+			//System.out.println(i + " " + keyValues.get(i).toString());
 		}
 	}
 	

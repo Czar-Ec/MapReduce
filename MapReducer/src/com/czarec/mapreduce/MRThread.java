@@ -1,6 +1,12 @@
 package com.czarec.mapreduce;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+
+
 
 public class MRThread implements Runnable {
 
@@ -10,11 +16,9 @@ public class MRThread implements Runnable {
 	//3 = Task3
 	private volatile int mapType;
 	
-	private volatile Map m = new Map();
+	private volatile Map map = new Map();
 	private volatile DataChunk dc;
 	private volatile ArrayList<Flights> flights = new ArrayList<Flights>();
-	
-	Combiner c;
 	
 	/**
 	 * MRThread
@@ -43,19 +47,55 @@ public class MRThread implements Runnable {
 		//make a key value pair for each flight
 		for(Flights f: flights)
 		{
-			m.put(f.getOriginAirportCode(), f.getFlightID());
+			map.put(f.getOriginAirportCode(), f.getFlightID());
 			//System.out.println(f.getOriginAirportCode() + " " + f.getFlightID());
 		}
 		
-		c = new Combiner(m.get());
-		c.printList();
+		//print all mapped values to a file
+		folderSetup();
 	}
-
 	
-	public Map getKeyValues()
+	private void folderSetup()
 	{
-		return m;
+		String folder = new File("res\\chunks").getAbsolutePath();
+		File f = new File(folder);
+		try
+		{
+			//check if the folder already exists
+			if(!f.exists())
+			{
+				boolean created = f.mkdir();
+				if(!created)
+				{
+					System.out.println("Error: chunks folder cannot be created in res folder");
+				}
+			}
+			else
+			{
+				printToFile();
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
-	
+	private void printToFile() throws FileNotFoundException, UnsupportedEncodingException
+	{
+		PrintWriter pw = new PrintWriter("res\\chunks\\" + Thread.currentThread().getName(), "UTF-8");
+		
+		//print every key value pair
+		ArrayList<Object> o = map.get();
+		
+		//print all the key value pairs
+		for(int i = 0; i < o.size(); i++)
+		{
+			//convert to key value pair to print its individual key and value per line
+			KeyValuePair1 kv = (KeyValuePair1) o.get(i);
+			pw.println(kv.getKey() + "|" + kv.getValue());
+		}
+		
+		pw.close();
+	}
 }
