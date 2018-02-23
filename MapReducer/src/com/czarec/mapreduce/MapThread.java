@@ -75,14 +75,15 @@ public class MapThread implements Runnable {
 		}
 				
 		//print all mapped values to a file
-		folderSetup();
+		folderSetupKV1();
+		folderSetupKV2();
 	}
 	
 	/**
 	 * folderSetup
 	 * function that sets up the files to be printed
 	 */
-	private void folderSetup()
+	private void folderSetupKV1()
 	{
 		////////////////////////////////////////////////////////////////////////////////////////////
 		/*
@@ -136,6 +137,17 @@ public class MapThread implements Runnable {
 		}
 		
 		pw.close();
+	}
+	
+	private void folderSetupKV2()
+	{
+		////////////////////////////////////////////////////////////////////////////////////////////
+		/*
+		 * Making k2v2 pairs
+		 */
+		////////////////////////////////////////////////////////////////////////////////////////////
+		
+		
 	}
 }
 

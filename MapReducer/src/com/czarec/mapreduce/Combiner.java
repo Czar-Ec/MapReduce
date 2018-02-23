@@ -17,70 +17,54 @@ public class Combiner {
 	 */
 	ArrayList<Object> keyValues = new ArrayList<Object>();
 	
+	ArrayList<KeyValuePair2> kv2 = new ArrayList<KeyValuePair2>();
+	
 	/**
 	 * Combiner
 	 * constructor
 	 */
-	Combiner() 
+	Combiner(Map map)
 	{
-		//check if there are key values available
-		String fileLoc = new File("res\\kv1").getAbsolutePath();
-		File f = new File(fileLoc);
+		ArrayList<Object> kv = map.get();
 		
-		//get all the files in the folder
-		ArrayList<File> fileList = new ArrayList<File>();
-		
-		try
+		for(Object obj : kv)
 		{
-			if(!f.exists())
+			//boolean to check if group exists
+			boolean exists = false;
+			
+			//loop through the kv2
+			for(KeyValuePair2 compare : kv2)
 			{
-				System.out.println("Error: no key values to combine");
+				//if found
+				if(compare.getKey().equals(((KeyValuePair1) obj).getKey()))
+				{
+					compare.addValue(((KeyValuePair1) obj).getValue());
+				}
 			}
-			else
+			
+			//if not found
+			if(!exists)
 			{
+				//add new value
+				ArrayList<Object> values = new ArrayList<Object>();
+				values.add(((KeyValuePair1) obj).getValue());
 				
-				File[] folderContents = new File("res\\kv1").listFiles();
-				
-				for(File file : folderContents)
-				{
-					//only files, not folders
-					if(file.isFile())
-					{
-						fileList.add(file);
-					}
-				}
-				
-				//make a thread for each file
-				ArrayList<Thread> threadList = new ArrayList<Thread>();
-				
-				for(int i = 0; i < fileList.size(); i++)
-				{
-					CombinerThread ct = new CombinerThread(fileList.get(i));
-					Thread t = new Thread(ct);
-					t.setName(fileList.get(i).getName());
-					threadList.add(t);
-					
-					//run the thread
-					threadList.get(i).start();
-				}
-				
-				
+				KeyValuePair2 newObj = new KeyValuePair2(((KeyValuePair1) obj).getKey(), values);
+				kv2.add(newObj);
 			}
 		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-		//create a thread for each file that exists from the kv1 folder
-		//and delete them to stop duplicate data
-		
-		
-		//the combiner stores the values in an array and remove duplicates by turning them into kv2
-		
-		//then print out the kv2
 	}
 	
+	/**
+	 * getKV2
+	 * returns the combined kv1 values (kv2)
+	 * 
+	 * @return kv2
+	 */
+	public ArrayList<KeyValuePair2> getKV2()
+	{
+		return kv2;
+	}
 	
 }
 

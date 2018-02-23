@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.ListIterator;
 import java.util.Set;
 
 public class CombinerThread implements Runnable {
@@ -20,7 +21,7 @@ public class CombinerThread implements Runnable {
 	
 	//list of lists where each inner list has the key at position 0
 	//and any other values are the values for the key
-	ArrayList<ArrayList<Object>> kv2 = new ArrayList<ArrayList<Object>>();
+	ArrayList<KeyValuePair2> kv2 = new ArrayList<KeyValuePair2>();
 	
 	/**
 	 * CombinerThread default constructor
@@ -53,31 +54,30 @@ public class CombinerThread implements Runnable {
 				kv.add(keyValue);
 			}
 			
-			//make a list of lists
-			for(KeyValuePair1 keyValues : kv)
+			for(KeyValuePair1 obj : kv)
 			{
-				if(kv2.size() == 0)
+				//boolean to check if the group exists
+				boolean exists = false;
+				
+				//loop through the kv2
+				for(KeyValuePair2 compare : kv2)
 				{
-					ArrayList<Object> obj = new ArrayList<Object>();
-					obj.add(keyValues.getKey());
-					obj.add(keyValues.getValue());
-					kv2.add(obj);
-				}
-				else
-				{
-					//for each key value 1, check if a key exists in the list
-					for(ArrayList<Object> check : kv2)
+					//if found
+					if(compare.getKey().equals(obj.getKey()))
 					{
-						//if matching keys then add a value to the key
-						if(keyValues.getKey().equals(check.get(0)))
-						{
-							check.add(keyValues.getValue());
-						}
-						else
-						{
-							
-						}
+						compare.addValue(obj.getValue());
 					}
+				}
+				
+				//if not found
+				if(!exists)
+				{
+					//add new value
+					ArrayList<Object> values = new ArrayList<Object>();
+					values.add(obj.getValue());
+					
+					KeyValuePair2 newObj = new KeyValuePair2(obj.getKey(), values);
+					kv2.add(newObj);
 				}
 				
 			}
@@ -127,7 +127,8 @@ public class CombinerThread implements Runnable {
 		
 		for(Object obj : kv2)
 		{
-			System.out.println(obj);
+			pw.append(obj.toString());
+			pw.append("\n");
 		}
 		
 		pw.close();
