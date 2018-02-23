@@ -31,9 +31,14 @@ public class Map {
 		keyValues.add(kv);
 	}
 	
+	/**
+	 * get
+	 * returns the key value pairs stored by the map
+	 * 
+	 * @return keyValues
+	 */
 	public ArrayList<Object> get()
 	{
 		return keyValues;
 	}
-		
 }

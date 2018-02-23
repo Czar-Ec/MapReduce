@@ -13,6 +13,7 @@ public class DataChunk {
 	//variable that stores objects to be stored by this chunk
 	private ArrayList<Object> chunk = new ArrayList<Object>();
 	
+	//size of the chunk
 	private int chunkSize;
 	
 	

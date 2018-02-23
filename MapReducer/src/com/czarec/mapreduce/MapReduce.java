@@ -205,7 +205,7 @@ public class MapReduce {
 		//make a new thread for each chunk
 		for(int i = 0; i < chunkFile1.size(); i++)
 		{
-			MRThread mrt = new MRThread(chunkFile1.get(i), 0);
+			MapThread mrt = new MapThread(chunkFile1.get(i), 0);
 			Thread t = new Thread(mrt);
 			t.setName("chunk"+i);
 			threadList.add(t);
@@ -220,6 +220,8 @@ public class MapReduce {
 			t.join();
 		}
 		
+		//combine all the values from the kv1 pairs
+		new Combiner();
 		
 	}
 	

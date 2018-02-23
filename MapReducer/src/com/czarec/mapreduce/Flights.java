@@ -29,11 +29,6 @@ public class Flights {
 	 */
 	private int flightTime;
 	
-	
-	
-	
-	
-	
 	/**
 	 * Flights default constructor
 	 */

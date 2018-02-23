@@ -41,6 +41,10 @@ public class KeyValuePair1 {
 	 */
 	public Object getValue() { return value; }
 	
+	/**
+	 * toString
+	 * returns the keyvalue pair as a string
+	 */
 	public String toString()
 	{
 		return key + "\n" + value + "\n";

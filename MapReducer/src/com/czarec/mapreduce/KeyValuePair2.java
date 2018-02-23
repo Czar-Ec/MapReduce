@@ -39,17 +39,57 @@ public class KeyValuePair2 extends KeyValuePair1 {
 	 */
 	public void addValue(Object o)
 	{
-		//add one more value of 1
+		//add one more value
 		valueList.add(o);
 	}
 	
+	/**
+	 * getValueAt
+	 * returns the value from a specified position
+	 * 
+	 * @param pos
+	 * @return
+	 */
+	public Object getValueAt(int pos)
+	{
+		return valueList.get(pos);
+	}
+	
+	/**
+	 * getValues
+	 * returns all the kv2 values
+	 * 
+	 * @return
+	 */
 	public ArrayList<Object> getValues()
 	{
 		return valueList;
 	}
 	
+	/**
+	 * toString
+	 * returns the key value pair 2 as a string
+	 */
 	public String toString()
 	{
-		return key + "" + valueList.size() + "\n";
+		StringBuilder sb = new StringBuilder();
+		sb.append(key);
+		sb.append("|");
+		
+		//the values
+		for(int i = 0; i < valueList.size(); i++)
+		{
+			if(i == valueList.size() - 1)
+			{
+				sb.append(valueList.get(i));
+			}
+			else
+			{
+				sb.append(valueList.get(i) + "-");
+			}
+		}
+		
+		
+		return sb.toString();
 	}
 }
