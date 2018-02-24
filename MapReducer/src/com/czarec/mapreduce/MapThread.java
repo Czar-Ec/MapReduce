@@ -40,32 +40,66 @@ public class MapThread implements Runnable {
 		mapType = mt;
 	}
 	
-	
+	/**
+	 * run
+	 * executes the thread
+	 */
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
 		//convert data chunks into mapped data
+		flights = MapReduce.chunkToFlights(dc);
+		
 		switch(mapType)
 		{
 			//count flights
 			case 0:
-				flights = MapReduce.chunkToFlights(dc);
-				
-				//make a key value pair for each flight
-				for(Flights f: flights)
 				{
-					map.put(f.getOriginAirportCode(), f.getFlightID());
-					//System.out.println(f.getOriginAirportCode() + " " + f.getFlightID());
+					//make a key value pair for each flight
+					for(Flights f: flights)
+					{
+						map.put(f.getOriginAirportCode(), f.getFlightID());
+						//System.out.println(f.getOriginAirportCode() + " " + f.getFlightID());
+					}
+					
+					//print all mapped values to a file
+					folderSetup("res\\task1kv1\\", 1);
+					folderSetup("res\\task1kv2\\", 2);
 				}
 				break;
 				
 			//list flights
 			case 1:
-				
+				{					
+					//map the flights
+					//BY THE FLIGHT ID
+					//reducer groups the flights by the flight id
+					for(Flights f : flights)
+					{
+						map.put(f.getFlightID(), f);
+						//System.out.println(f.toString());
+					}
+					
+					//print mapped values
+					folderSetup("res\\task2kv1\\", 1);
+					folderSetup("res\\task2kv2\\", 2);
+					
+				}
 				break;
 				
 			//calculate num of passengers
 			case 2:
+				//map with passenger as value
+				for(Flights f : flights)
+				{
+					map.put(f.getFlightID(), f.getPassengerID());
+					//System.out.println(f.toString());
+				}
+				
+				//print mapped values
+				folderSetup("res\\task3kv1\\", 1);
+				folderSetup("res\\task3kv2\\", 2);
+				
 				break;
 				
 			default:
@@ -74,23 +108,21 @@ public class MapThread implements Runnable {
 		
 		}
 				
-		//print all mapped values to a file
-		folderSetupKV1();
-		folderSetupKV2();
+		
 	}
 	
 	/**
 	 * folderSetup
 	 * function that sets up the files to be printed
 	 */
-	private void folderSetupKV1()
+	private void folderSetup(String fileLoc, int keyType)
 	{
 		////////////////////////////////////////////////////////////////////////////////////////////
 		/*
 		 * Making k1v1 pairs
 		 */
 		////////////////////////////////////////////////////////////////////////////////////////////
-		String folder = new File("res\\kv1").getAbsolutePath();
+		String folder = new File(fileLoc).getAbsolutePath();
 		File f = new File(folder);
 		try
 		{
@@ -100,12 +132,25 @@ public class MapThread implements Runnable {
 				boolean created = f.mkdir();
 				if(!created)
 				{
-					System.out.println("Error: kv1 folder cannot be created in res folder");
+					System.out.println("Error: folder cannot be created in res folder");
 				}
 			}
 			else
 			{
-				printKV1();
+				switch(keyType)
+				{
+					case 1:
+						printKV1(fileLoc);
+						break;
+						
+					case 2:
+						printKV2(fileLoc);
+						break;
+					
+					default:
+						System.out.println("Invalid key type");
+						break;
+				}
 			}
 		}
 		catch (Exception e)
@@ -121,9 +166,9 @@ public class MapThread implements Runnable {
 	 * @throws FileNotFoundException
 	 * @throws UnsupportedEncodingException
 	 */
-	private void printKV1() throws FileNotFoundException, UnsupportedEncodingException
+	private void printKV1(String fileLoc) throws FileNotFoundException, UnsupportedEncodingException
 	{
-		PrintWriter pw = new PrintWriter("res\\kv1\\" + Thread.currentThread().getName(), "UTF-8");
+		PrintWriter pw = new PrintWriter(fileLoc + "" + Thread.currentThread().getName(), "UTF-8");
 		
 		//print every key value pair
 		ArrayList<Object> o = map.get();
@@ -139,15 +184,31 @@ public class MapThread implements Runnable {
 		pw.close();
 	}
 	
-	private void folderSetupKV2()
+	/**
+	 * printKV2
+	 * function that prints the kv2 to the kv2 folder
+	 * 
+	 * @param fileLoc
+	 * @throws FileNotFoundException
+	 * @throws UnsupportedEncodingException
+	 */
+	private void printKV2(String fileLoc) throws FileNotFoundException, UnsupportedEncodingException
 	{
-		////////////////////////////////////////////////////////////////////////////////////////////
-		/*
-		 * Making k2v2 pairs
-		 */
-		////////////////////////////////////////////////////////////////////////////////////////////
+		PrintWriter pw = new PrintWriter(fileLoc + Thread.currentThread().getName(), "UTF-8");
 		
+		//get the kv2 pairs
+		ArrayList<KeyValuePair2> kv2 = new ArrayList<KeyValuePair2>();
+		kv2 = new Combiner(map).getKV2();
 		
+		//print all the key value pairs
+		for(KeyValuePair2 addObj : kv2)
+		{
+			pw.append(addObj.toString());
+			//adding a new line
+			pw.append("\n");
+		}
+		
+		pw.close();
 	}
 }
 

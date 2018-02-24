@@ -1,10 +1,13 @@
 package com.czarec.mapreduce;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +42,8 @@ public class MapReduce {
 	static List<DataChunk> chunkFile1 = new ArrayList<DataChunk>();
 	static List<DataChunk> chunkFile2 = new ArrayList<DataChunk>();
 	
+	static ArrayList<Airport> airportList = new ArrayList<Airport>();
+	
 	///////////////////////////////////////////////////////////////////////////////////
 	/*
 	 * Values used as constants for validation checks
@@ -47,7 +52,9 @@ public class MapReduce {
 	private static final int 
 	VALIDATE_FLIGHT_NUM = 1,
 	VALIDATE_PASSENGER_NUM = 2,
-	VALIDATE_AIRPORT_CODE = 3;
+	VALIDATE_AIRPORT_CODE = 3,
+	VALIDATE_AIRPORT_NAME = 4,
+	VALIDATE_COORDINATES = 5;
 	
 	
 	
@@ -61,16 +68,20 @@ public class MapReduce {
 		
 		try
 		{
-			//inputFile1 = args[0];
-			//inputFile2 = args[1];
-			//outputFile = args[2];
-			
-			//debug values for now
-			inputFile1 = "res\\passenger.csv";
-			inputFile2 = "res\\airports.csv";
-			outputFile = "res\\output.txt";
-			
-			
+			if(args.length == 0)
+			{
+				System.out.println("No arguments detected, using test files instead");
+				
+				inputFile1 = "res\\test1.csv";
+				inputFile2 = "res\\test2.csv";
+				outputFile = "res\\outputTest.txt";
+			}
+			else
+			{
+				inputFile1 = args[0];
+				inputFile2 = args[1];
+				outputFile = args[2];
+			}
 		}
 		catch (Exception e)
 		{
@@ -81,7 +92,6 @@ public class MapReduce {
 			"input file 2: " + inputFile2 + "\n" +
 			"output file: " + outputFile + "\n"					
 					);
-			
 			System.exit(0);
 		}
 		
@@ -126,7 +136,8 @@ public class MapReduce {
 				if(str.length >= 4)
 				{
 					//only one validation, which is the airport code
-					if(validation(str[1], VALIDATE_AIRPORT_CODE))
+					if(validation(str[0], VALIDATE_AIRPORT_NAME) && validation(str[1], VALIDATE_AIRPORT_CODE) 
+							&& validation(str[2], VALIDATE_COORDINATES) && validation(str[3], VALIDATE_COORDINATES))
 					{
 						//create airport with the inputs
 						Airport a = new Airport(str[0], str[1], str[2], str[3]);
@@ -135,7 +146,7 @@ public class MapReduce {
 						//System.out.println(a.toString());
 						
 						//add to airport list
-						//airportList.add(a);
+						airportList.add(a);
 					}
 					else
 					{
@@ -169,12 +180,53 @@ public class MapReduce {
 		
 		//run the tasks
 		try
-		{			
+		{	
+			//output file setup
+			fw = new FileWriter(new File(outputFile));
+			
 			countFlights();
 			
 			flightList();
 			
 			calculatePassengers();
+			
+			//close the file
+			fw.close();
+			fw = null;
+			
+			//empty the folders unless argument states otherwise
+			if(!(args.length == 0))
+			{
+				if(Integer.parseInt(args[3]) == 1)
+				{
+					emptyDirectory(new File("res\\task1kv1"));
+					emptyDirectory(new File("res\\task1kv2"));
+				}
+				if(Integer.parseInt(args[4]) == 1)
+				{
+					emptyDirectory(new File("res\\task2kv1"));
+					emptyDirectory(new File("res\\task2kv2"));
+				}
+				if(Integer.parseInt(args[5]) == 1)
+				{
+					emptyDirectory(new File("res\\task3kv1"));
+					emptyDirectory(new File("res\\task3kv2"));
+				}
+			}
+			else
+			{
+				System.out.println("\n\n ============================================ \n"
+						+ "No arguments were detected, test files were used instead\n");
+				
+				emptyDirectory(new File("res\\task1kv1"));
+				emptyDirectory(new File("res\\task1kv2"));
+				emptyDirectory(new File("res\\task2kv1"));
+				emptyDirectory(new File("res\\task2kv2"));
+				emptyDirectory(new File("res\\task3kv1"));
+				emptyDirectory(new File("res\\task3kv2"));
+			}
+			
+			
 		}
 		catch (Exception e)
 		{
@@ -196,9 +248,15 @@ public class MapReduce {
 	 * determines the number of flights from each airport
 	 * also lists the airports that are not used
 	 * @throws InterruptedException 
+	 * @throws IOException 
 	 */
-	public static void countFlights() throws InterruptedException
+	public static void countFlights() throws InterruptedException, IOException
 	{
+		/////////////////////////////////////////////////////////////////////////////
+		/*
+		 * Map
+		 */
+		/////////////////////////////////////////////////////////////////////////////
 		//add threads to a list
 		ArrayList<Thread> threadList = new ArrayList<Thread>();
 		
@@ -217,12 +275,64 @@ public class MapReduce {
 		//join all threads
 		for(Thread t : threadList)
 		{
-			t.join();
+			try
+			{
+				t.join();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 		
-		//combine all the values from the kv1 pairs
-		new Combiner();
+		/////////////////////////////////////////////////////////////////////////////
+		/*
+		 * Reduce
+		 */
+		/////////////////////////////////////////////////////////////////////////////
 		
+		Reduce r = new Reduce("res\\task1kv2");
+		
+		ArrayList<Airport> unmatchedAirports = new ArrayList<Airport>();
+		
+		fileOutput("Flight count: \n", fw);
+		
+		//need to link this to airports to list which has how many flights
+		//check for each airport the matching key and then print out the size of value list
+		for(Airport a : airportList)
+		{
+			//boolean to check for matches
+			boolean match = false;
+			
+			//check through the kv2
+			for(KeyValuePair2 kv2 : r.getKV2())
+			{
+				if(a.getCode().equals(kv2.getKey()))
+				{
+					match = true;
+					fileOutput(kv2.getKey() + ": " + kv2.getValues().size() + " ", fw);
+				}
+			}
+			
+			//if no matches then airport not used
+			if(!match)
+			{
+				unmatchedAirports.add(a);
+			}
+		}
+		
+		//formatting
+		fileOutput("\n-----------------------", fw);
+		fileOutput("Unmatched airports: \n", fw);
+		
+		//output unmatched airports
+		for(Airport a : unmatchedAirports)
+		{
+			fileOutput(a.getCode() + " ", fw);
+		}
+		
+		fileOutput("\n-----------------------", fw);
+		fileOutput("\n", fw);
 	}
 	
 	/**
@@ -230,18 +340,130 @@ public class MapReduce {
 	 * creates a list of flights based on flight ID
 	 * includes the passenger Id, relevant IATA/FAA codes, the departure time, 
 	 * the arrival time, and the flight times
+	 * @throws IOException 
 	 */
-	public static void flightList()
+	public static void flightList() throws IOException
 	{
+		/////////////////////////////////////////////////////////////////////////////
+		/*
+		* Map
+		*/
+		/////////////////////////////////////////////////////////////////////////////
+		ArrayList<Thread> threadList = new ArrayList<Thread>();
+				
+		//make a new thread for each chunk
+		for(int i = 0; i < chunkFile1.size(); i++)
+		{
+			MapThread mrt = new MapThread(chunkFile1.get(i), 1);
+			Thread t = new Thread(mrt);
+			t.setName("chunk"+i);
+			threadList.add(t);
+			
+			//run the thread
+			threadList.get(i).start();
+		}
 		
+		//join all threads
+		for(Thread t : threadList)
+		{
+			try
+			{
+				t.join();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		
+		/////////////////////////////////////////////////////////////////////////////
+		/*
+		* Reduce
+		*/
+		/////////////////////////////////////////////////////////////////////////////
+		Reduce r = new Reduce("res\\task2kv1");
+		
+		fileOutput("///////////////////////////////////////////////\n", fw);
+		fileOutput("Flight List: \n", fw);
+		
+		//print each flight
+		for(KeyValuePair2 kv : r.getKV2())
+		{
+			//title for each flight is the flight id
+			fileOutput("---- " + kv.getKey() + " ----\n", fw);
+			
+			//print each value
+			for(Object f : kv.getValues())
+			{
+				//convert object into flight object
+				String[] str = ((String) f).split(",");
+				Flights flight = new Flights(str[0], str[1], str[2], str[3], str[4], str[5]);
+				
+				//print to the file
+				fileOutput(flight.printFormat(), fw);
+			}
+			
+			//System.out.println(kv);
+		}
 	}
 	
 	/**
 	 * calculatePassengers
 	 * calculates the number of passengers for each flight
+	 * @throws IOException 
 	 */
-	public static void calculatePassengers()
+	public static void calculatePassengers() throws IOException
 	{
+		/////////////////////////////////////////////////////////////////////////////
+		/*
+		* Map
+		*/
+		/////////////////////////////////////////////////////////////////////////////
+		
+		ArrayList<Thread> threadList = new ArrayList<Thread>();
+		
+		//make a new thread for each chunk
+		for(int i = 0; i < chunkFile1.size(); i++)
+		{
+			MapThread mrt = new MapThread(chunkFile1.get(i), 2);
+			Thread t = new Thread(mrt);
+			t.setName("chunk"+i);
+			threadList.add(t);
+			
+			//run the thread
+			threadList.get(i).start();
+		}
+		
+		//join all threads
+		for(Thread t : threadList)
+		{
+			try
+			{
+				t.join();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		/////////////////////////////////////////////////////////////////////////////
+		/*
+		* Reduce
+		*/
+		/////////////////////////////////////////////////////////////////////////////
+		Reduce r = new Reduce("res\\task2kv1");
+		
+		fileOutput("///////////////////////////////////////////////\n", fw);
+		fileOutput("Passenger Count: \n", fw);
+		
+		//print each flight
+		for(KeyValuePair2 kv : r.getKV2())
+		{
+			//title for each flight is the flight id
+			fileOutput(kv.getKey() + ": " + kv.getValues().size(), fw);
+		}
 		
 	}
 	
@@ -258,6 +480,8 @@ public class MapReduce {
 	 * VALIDATE_FLIGHT_NUM = 1
 	 * VALIDATE_PASSENGER_NUM = 2
 	 * VALIDATE_AIRPORT_CODE = 3
+	 * VALIDATE_AIRPORT_NAME = 4
+	 * VALIDATE_COORDINATES = 5
 	 * 
 	 * @param str
 	 * @param validationType
@@ -295,6 +519,23 @@ public class MapReduce {
 			case 3:
 				//format for airport code is XXX all capitals letter only
 				if(str.matches("[A-Z]{3}"))
+				{
+					valid = true;
+				}
+				break;
+				
+			//validate airport name
+			case 4:
+				//between 3 and 20 and has whitespace
+				if(str.length() >= 3 && str.length() <= 20)
+				{
+					valid = true;
+				}
+				break;
+				
+			//validate coordinates
+			case 5:
+				if(str.matches("[+-]?\\d+{3}\\.?\\d+{6}\\s*"))
 				{
 					valid = true;
 				}
@@ -387,18 +628,54 @@ public class MapReduce {
 	 * function that allows for printing to the output file
 	 * @param out
 	 * @param fw
+	 * @throws IOException 
 	 */
-	private static void fileOutput(String out, FileWriter fw)
-	{
+	private static void fileOutput(String out, FileWriter fw) throws IOException
+	{		
 		//output to the file
 		try
 		{
-			fw.write(out);
+			fw.write(out + "\n");
 			System.out.print(out);
 		}
 		catch(IOException e)
 		{
 			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * emptyDirectory
+	 * used to empty the directory which is passed to the function
+	 * 
+	 * @param f
+	 */
+	private static void emptyDirectory(File f)
+	{
+		//check if the path exists
+		if(f.exists())
+		{
+			//get all its children and delete
+			File[] contents = f.listFiles();
+			for(File delete : contents)
+			{
+				//if it is a directory, delete its children
+				if(delete.isDirectory())
+				{
+					emptyDirectory(delete);
+				}
+				else
+				{
+					if(!delete.delete())
+					{
+						System.out.println("Cannot delete: " + delete);
+					}
+				}
+			}
+		}
+		else
+		{
+			System.out.println("File path does not exist, cannot empty contents");
 		}
 	}
 }

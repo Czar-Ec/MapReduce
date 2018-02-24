@@ -44,6 +44,19 @@ public class KeyValuePair2 extends KeyValuePair1 {
 	}
 	
 	/**
+	 * addList
+	 * appends a list to the current list
+	 * @param obj
+	 */
+	public void addList(ArrayList<Object> obj)
+	{
+		for(Object o : obj)
+		{
+			valueList.add(o);
+		}
+	}
+	
+	/**
 	 * getValueAt
 	 * returns the value from a specified position
 	 * 

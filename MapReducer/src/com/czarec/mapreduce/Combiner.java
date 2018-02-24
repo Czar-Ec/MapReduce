@@ -1,6 +1,5 @@
 package com.czarec.mapreduce;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -38,7 +37,10 @@ public class Combiner {
 				//if found
 				if(compare.getKey().equals(((KeyValuePair1) obj).getKey()))
 				{
+					//System.out.println(compare.getKey() + " " + ((KeyValuePair1) obj).getKey());
 					compare.addValue(((KeyValuePair1) obj).getValue());
+					
+					exists = true;
 				}
 			}
 			

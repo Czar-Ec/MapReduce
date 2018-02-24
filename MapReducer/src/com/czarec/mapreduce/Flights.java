@@ -60,7 +60,15 @@ public class Flights {
 		flightTime = Integer.parseInt(fTime);
 		
 		//converts departure time to unix format
-		departureTime = convertFromUnix(Long.parseLong(depTime));
+		try
+		{
+			departureTime = convertFromUnix(Long.parseLong(depTime));
+		}
+		catch(Exception e)
+		{
+			departureTime = depTime;
+		}
+		
 	}
 	
 	/**
@@ -70,11 +78,17 @@ public class Flights {
 	 */
 	public String toString()
 	{
-		return "Passenger ID: " + passengerID + "\n" +
-				"Flight ID: " + flightID + "\n" +
-				"Origin: " + originAirportCode + " || Destination: " + destinationAirportCode + "\n" +
-				"Departure time: " + departureTime + "\n" +
-				"Flight Time: " + flightTime + "\n";
+		return flightID + "," + passengerID + "," + destinationAirportCode + "," + originAirportCode + "," + departureTime + "," + flightTime;
+	}
+	
+	public String printFormat()
+	{
+		return "Passenger ID: " + flightID + "\n" +
+				"Flight ID : " + passengerID + "\n" +
+				"Origin: " + originAirportCode + "\n" +
+				"Destination: " + destinationAirportCode + "\n" + 
+				"Departure Time: " + departureTime + "\n" + 
+				"Flight Length: " + flightTime / 60 + " hours " + flightTime % 60 +  " minutes\n\n";
 	}
 	
 	/**

@@ -11,11 +11,6 @@ public class Airport {
 	//airport location - longtitude and lattitude
 	private double longtitude, latitude;
 
-	
-	
-	
-	
-	
 	/**
 	 * Airport default constructor
 	 */
