@@ -1,26 +1,26 @@
 Flight count: 
-ATL: 34 
-PEK: 10 
-LHR: 24 
-ORD: 32 
-HND: 13 
-CDG: 20 
-DFW: 10 
-DEN: 43 
-CGK: 26 
-AMS: 13 
-MAD: 12 
-BKK: 15 
-JFK: 24 
-CAN: 35 
-LAS: 15 
-PVG: 20 
-IAH: 36 
+ATL: 24 
+PEK: 9 
+LHR: 20 
+ORD: 30 
+HND: 12 
+CDG: 19 
+DFW: 7 
+DEN: 33 
+CGK: 23 
+AMS: 10 
+MAD: 9 
+BKK: 12 
+JFK: 18 
+CAN: 31 
+LAS: 14 
+PVG: 19 
+IAH: 34 
 CLT: 20 
-MIA: 11 
+MIA: 10 
 MUC: 13 
-KUL: 31 
-FCO: 14 
+KUL: 29 
+FCO: 13 
 
 -----------------------Unmatched airports: 
 LAX 
@@ -72,48 +72,6 @@ Departure Time: 17:05:17
 Flight Length: 13 hours 22 minutes
 
 Passenger ID: HGO4350KK3
-Flight ID : XXQ4064B
-Origin: FRA
-Destination: JFK
-Departure Time: 17:05:17
-Flight Length: 13 hours 22 minutes
-
-Passenger ID: PUD8209OG3
-Flight ID : XXQ4064B
-Origin: FRA
-Destination: JFK
-Departure Time: 17:05:17
-Flight Length: 13 hours 22 minutes
-
-Passenger ID: BWI0520BG2
-Flight ID : XXQ4064B
-Origin: FRA
-Destination: JFK
-Departure Time: 17:05:17
-Flight Length: 13 hours 22 minutes
-
-Passenger ID: JJM4724RF3
-Flight ID : XXQ4064B
-Origin: FRA
-Destination: JFK
-Departure Time: 17:05:17
-Flight Length: 13 hours 22 minutes
-
-Passenger ID: XFG5747ZT2
-Flight ID : XXQ4064B
-Origin: FRA
-Destination: JFK
-Departure Time: 17:05:17
-Flight Length: 13 hours 22 minutes
-
-Passenger ID: UMH6360YP0
-Flight ID : XXQ4064B
-Origin: FRA
-Destination: JFK
-Departure Time: 17:05:17
-Flight Length: 13 hours 22 minutes
-
-Passenger ID: YMH6360YP2
 Flight ID : XXQ4064B
 Origin: FRA
 Destination: JFK
@@ -254,20 +212,6 @@ Destination: ORD
 Departure Time: 17:00:49
 Flight Length: 4 hours 10 minutes
 
-Passenger ID: XFG5747ZT1
-Flight ID : SOH3431A
-Origin: MIA
-Destination: ORD
-Departure Time: 17:00:49
-Flight Length: 4 hours 10 minutes
-
-Passenger ID: KKP5277HZ0
-Flight ID : SOH3431A
-Origin: MIA
-Destination: ORD
-Departure Time: 17:00:49
-Flight Length: 4 hours 10 minutes
-
 Passenger ID: CXN7304ER3
 Flight ID : SOH3431A
 Origin: MIA
@@ -347,27 +291,6 @@ Departure Time: 17:13:29
 Flight Length: 22 hours 2 minutes
 
 Passenger ID: HGO4350KK6
-Flight ID : PME8178S
-Origin: PEK
-Destination: DEN
-Departure Time: 17:13:29
-Flight Length: 22 hours 2 minutes
-
-Passenger ID: XFG5747ZT4
-Flight ID : PME8178S
-Origin: PEK
-Destination: DEN
-Departure Time: 17:13:29
-Flight Length: 22 hours 2 minutes
-
-Passenger ID: WYU2010YH5
-Flight ID : PME8178S
-Origin: PEK
-Destination: DEN
-Departure Time: 17:13:29
-Flight Length: 22 hours 2 minutes
-
-Passenger ID: JJM4724RF7
 Flight ID : PME8178S
 Origin: PEK
 Destination: DEN
@@ -466,27 +389,6 @@ Destination: MAD
 Departure Time: 16:56:48
 Flight Length: 3 hours 4 minutes
 
-Passenger ID: PAJ3974RK0
-Flight ID : MOO1786A
-Origin: FRA
-Destination: MAD
-Departure Time: 16:56:48
-Flight Length: 3 hours 4 minutes
-
-Passenger ID: JBE2302VO0
-Flight ID : MOO1786A
-Origin: FRA
-Destination: MAD
-Departure Time: 16:56:48
-Flight Length: 3 hours 4 minutes
-
-Passenger ID: SJD8775RZ0
-Flight ID : MOO1786A
-Origin: FRA
-Destination: MAD
-Departure Time: 16:56:48
-Flight Length: 3 hours 4 minutes
-
 Passenger ID: POP2875LH0
 Flight ID : MOO1786A
 Origin: FRA
@@ -538,27 +440,6 @@ Departure Time: 17:15:25
 Flight Length: 23 hours 18 minutes
 
 Passenger ID: JJM4725RF0
-Flight ID : HUR0974O
-Origin: PVG
-Destination: DEN
-Departure Time: 17:15:25
-Flight Length: 23 hours 18 minutes
-
-Passenger ID: CYJ0225CH7
-Flight ID : HUR0974O
-Origin: PVG
-Destination: DEN
-Departure Time: 17:15:25
-Flight Length: 23 hours 18 minutes
-
-Passenger ID: CYJ0225CH7
-Flight ID : HUR0974O
-Origin: PVG
-Destination: DEN
-Departure Time: 17:15:25
-Flight Length: 23 hours 18 minutes
-
-Passenger ID: PUD8209OG8
 Flight ID : HUR0974O
 Origin: PVG
 Destination: DEN
@@ -630,34 +511,6 @@ Departure Time: 17:11:57
 Flight Length: 17 hours 37 minutes
 
 Passenger ID: WTC9125IE5
-Flight ID : GMO5938W
-Origin: PEK
-Destination: LHR
-Departure Time: 17:11:57
-Flight Length: 17 hours 37 minutes
-
-Passenger ID: SPR4484HA6
-Flight ID : GMO5938W
-Origin: PEK
-Destination: LHR
-Departure Time: 17:11:57
-Flight Length: 17 hours 37 minutes
-
-Passenger ID: DAZ3029XA5
-Flight ID : GMO5938W
-Origin: PEK
-Destination: LHR
-Departure Time: 17:11:57
-Flight Length: 17 hours 37 minutes
-
-Passenger ID: JBE2302VO3
-Flight ID : GMO5938W
-Origin: PEK
-Destination: LHR
-Departure Time: 17:11:57
-Flight Length: 17 hours 37 minutes
-
-Passenger ID: BWI0520BG3
 Flight ID : GMO5938W
 Origin: PEK
 Destination: LHR
@@ -771,27 +624,6 @@ Departure Time: 17:23:06
 Flight Length: 30 hours 11 minutes
 
 Passenger ID: EDV2089LK8
-Flight ID : DAU2617A
-Origin: SFO
-Destination: CGK
-Departure Time: 17:23:06
-Flight Length: 30 hours 11 minutes
-
-Passenger ID: XFG5747ZT7
-Flight ID : DAU2617A
-Origin: SFO
-Destination: CGK
-Departure Time: 17:23:06
-Flight Length: 30 hours 11 minutes
-
-Passenger ID: WBE6936NU1
-Flight ID : DAU2617A
-Origin: SFO
-Destination: CGK
-Departure Time: 17:23:06
-Flight Length: 30 hours 11 minutes
-
-Passenger ID: LLZ3799PE0
 Flight ID : DAU2617A
 Origin: SFO
 Destination: CGK
@@ -933,27 +765,6 @@ Destination: AMS
 Departure Time: 17:13:14
 Flight Length: 16 hours 41 minutes
 
-Passenger ID: ONL0812DH6
-Flight ID : ATT7791R
-Origin: DEN
-Destination: AMS
-Departure Time: 17:13:14
-Flight Length: 16 hours 41 minutes
-
-Passenger ID: UES9151GS5
-Flight ID : ATT7791R
-Origin: DEN
-Destination: AMS
-Departure Time: 17:13:14
-Flight Length: 16 hours 41 minutes
-
-Passenger ID: BWI0520BG5
-Flight ID : ATT7791R
-Origin: DEN
-Destination: AMS
-Departure Time: 17:13:14
-Flight Length: 16 hours 41 minutes
-
 Passenger ID: DAZ3029XA6
 Flight ID : ATT7791R
 Origin: DEN
@@ -1019,27 +830,6 @@ Flight Length: 16 hours 41 minutes
 
 ---- WPW9201U ----
 Passenger ID: UES9152GS1
-Flight ID : WPW9201U
-Origin: PEK
-Destination: DFW
-Departure Time: 17:21:09
-Flight Length: 24 hours 12 minutes
-
-Passenger ID: JJM4725RF1
-Flight ID : WPW9201U
-Origin: PEK
-Destination: DFW
-Departure Time: 17:21:09
-Flight Length: 24 hours 12 minutes
-
-Passenger ID: JJM4725RF1
-Flight ID : WPW9201U
-Origin: PEK
-Destination: DFW
-Departure Time: 17:21:09
-Flight Length: 24 hours 12 minutes
-
-Passenger ID: WTC9125IE8
 Flight ID : WPW9201U
 Origin: PEK
 Destination: DFW
@@ -1118,13 +908,6 @@ Departure Time: 17:04:16
 Flight Length: 9 hours 32 minutes
 
 Passenger ID: LLZ3798PE0
-Flight ID : MBA8071P
-Origin: PEK
-Destination: KUL
-Departure Time: 17:04:16
-Flight Length: 9 hours 32 minutes
-
-Passenger ID: WTC9125IE1
 Flight ID : MBA8071P
 Origin: PEK
 Destination: KUL
@@ -1217,13 +1000,6 @@ Departure Time: 17:05:27
 Flight Length: 8 hours 58 minutes
 
 Passenger ID: JJM4724RF4
-Flight ID : DKZ3042O
-Origin: SFO
-Destination: MIA
-Departure Time: 17:05:27
-Flight Length: 8 hours 58 minutes
-
-Passenger ID: PUD8209OG4
 Flight ID : DKZ3042O
 Origin: SFO
 Destination: MIA
@@ -1343,13 +1119,6 @@ Destination: CDG
 Departure Time: 17:14:58
 Flight Length: 18 hours 53 minutes
 
-Passenger ID: JBE2302VO6
-Flight ID : QHU1140O
-Origin: LAS
-Destination: CDG
-Departure Time: 17:14:58
-Flight Length: 18 hours 53 minutes
-
 Passenger ID: LLZ3798PE5
 Flight ID : QHU1140O
 Origin: LAS
@@ -1457,34 +1226,6 @@ Departure Time: 17:23:03
 Flight Length: 28 hours 3 minutes
 
 Passenger ID: PUD8210OG1
-Flight ID : ULZ8130D
-Origin: DFW
-Destination: CAN
-Departure Time: 17:23:03
-Flight Length: 28 hours 3 minutes
-
-Passenger ID: PIT2755XC5
-Flight ID : ULZ8130D
-Origin: DFW
-Destination: CAN
-Departure Time: 17:23:03
-Flight Length: 28 hours 3 minutes
-
-Passenger ID: HCA3159QA3
-Flight ID : ULZ8130D
-Origin: DFW
-Destination: CAN
-Departure Time: 17:23:03
-Flight Length: 28 hours 3 minutes
-
-Passenger ID: LLZ3798PE9
-Flight ID : ULZ8130D
-Origin: DFW
-Destination: CAN
-Departure Time: 17:23:03
-Flight Length: 28 hours 3 minutes
-
-Passenger ID: VZY2993ME9
 Flight ID : ULZ8130D
 Origin: DFW
 Destination: CAN
@@ -1717,13 +1458,6 @@ Destination: IAH
 Departure Time: 17:12:04
 Flight Length: 17 hours 24 minutes
 
-Passenger ID: HGO4350KK5
-Flight ID : HZT2506M
-Origin: AMS
-Destination: IAH
-Departure Time: 17:12:04
-Flight Length: 17 hours 24 minutes
-
 Passenger ID: JBE2302VO4
 Flight ID : HZT2506M
 Origin: AMS
@@ -1881,13 +1615,6 @@ Departure Time: 17:26:43
 Flight Length: 30 hours 43 minutes
 
 Passenger ID: SPR4485HA4
-Flight ID : VYW5940P
-Origin: SIN
-Destination: LAS
-Departure Time: 17:26:43
-Flight Length: 30 hours 43 minutes
-
-Passenger ID: UES9152GS5
 Flight ID : VYW5940P
 Origin: SIN
 Destination: LAS
@@ -2226,55 +1953,6 @@ Destination: ATL
 Departure Time: 17:25:40
 Flight Length: 29 hours 11 minutes
 
-Passenger ID: IEG9308EA8
-Flight ID : FYL5866L
-Origin: HKG
-Destination: ATL
-Departure Time: 17:25:40
-Flight Length: 29 hours 11 minutes
-
-Passenger ID: JJM4725RF2
-Flight ID : FYL5866L
-Origin: HKG
-Destination: ATL
-Departure Time: 17:25:40
-Flight Length: 29 hours 11 minutes
-
-Passenger ID: CDC0302NN8
-Flight ID : FYL5866L
-Origin: HKG
-Destination: ATL
-Departure Time: 17:25:40
-Flight Length: 29 hours 11 minutes
-
-Passenger ID: LLZ3799PE1
-Flight ID : FYL5866L
-Origin: HKG
-Destination: ATL
-Departure Time: 17:25:40
-Flight Length: 29 hours 11 minutes
-
-Passenger ID: HGO4351KK3
-Flight ID : FYL5866L
-Origin: HKG
-Destination: ATL
-Departure Time: 17:25:40
-Flight Length: 29 hours 11 minutes
-
-Passenger ID: YMH6361YP2
-Flight ID : FYL5866L
-Origin: HKG
-Destination: ATL
-Departure Time: 17:25:40
-Flight Length: 29 hours 11 minutes
-
-Passenger ID: CKZ3133BR3
-Flight ID : FYL5866L
-Origin: HKG
-Destination: ATL
-Departure Time: 17:25:40
-Flight Length: 29 hours 11 minutes
-
 Passenger ID: POP2876LH0
 Flight ID : FYL5866L
 Origin: HKG
@@ -2354,27 +2032,6 @@ Departure Time: 17:14:20
 Flight Length: 17 hours 29 minutes
 
 Passenger ID: HCA3158QA9
-Flight ID : SQU6245R
-Origin: FRA
-Destination: DEN
-Departure Time: 17:14:20
-Flight Length: 17 hours 29 minutes
-
-Passenger ID: XFG5747ZT5
-Flight ID : SQU6245R
-Origin: FRA
-Destination: DEN
-Departure Time: 17:14:20
-Flight Length: 17 hours 29 minutes
-
-Passenger ID: PIT2755XC4
-Flight ID : SQU6245R
-Origin: FRA
-Destination: DEN
-Departure Time: 17:14:20
-Flight Length: 17 hours 29 minutes
-
-Passenger ID: CYJ0225CH6
 Flight ID : SQU6245R
 Origin: FRA
 Destination: DEN
@@ -2488,13 +2145,6 @@ Departure Time: 17:26:07
 Flight Length: 30 hours 48 minutes
 
 Passenger ID: WBE6936NU2
-Flight ID : BER7172M
-Origin: LAS
-Destination: KUL
-Departure Time: 17:26:07
-Flight Length: 30 hours 48 minutes
-
-Passenger ID: HGO4351KK4
 Flight ID : BER7172M
 Origin: LAS
 Destination: KUL
@@ -2615,13 +2265,6 @@ Departure Time: 17:16:01
 Flight Length: 19 hours 49 minutes
 
 Passenger ID: JBE2302VO7
-Flight ID : JVY9791G
-Origin: FCO
-Destination: PVG
-Departure Time: 17:16:01
-Flight Length: 19 hours 49 minutes
-
-Passenger ID: POP2875LH8
 Flight ID : JVY9791G
 Origin: FCO
 Destination: PVG
@@ -2762,13 +2405,6 @@ Destination: FCO
 Departure Time: 17:18:18
 Flight Length: 21 hours 16 minutes
 
-Passenger ID: MXU9187YC9
-Flight ID : VDC9164W
-Origin: LAS
-Destination: FCO
-Departure Time: 17:18:18
-Flight Length: 21 hours 16 minutes
-
 Passenger ID: PUD8209OG9
 Flight ID : VDC9164W
 Origin: LAS
@@ -2848,13 +2484,6 @@ Departure Time: 17:26:43
 Flight Length: 32 hours 8 minutes
 
 Passenger ID: BWI0521BG1
-Flight ID : KJR6646J
-Origin: BKK
-Destination: IAH
-Departure Time: 17:26:43
-Flight Length: 32 hours 8 minutes
-
-Passenger ID: POP2876LH2
 Flight ID : KJR6646J
 Origin: BKK
 Destination: IAH
@@ -3009,27 +2638,6 @@ Destination: BKK
 Departure Time: 17:28:50
 Flight Length: 33 hours 47 minutes
 
-Passenger ID: MXU9188YC1
-Flight ID : YZO4444S
-Origin: MIA
-Destination: BKK
-Departure Time: 17:28:50
-Flight Length: 33 hours 47 minutes
-
-Passenger ID: IEG9308EA9
-Flight ID : YZO4444S
-Origin: MIA
-Destination: BKK
-Departure Time: 17:28:50
-Flight Length: 33 hours 47 minutes
-
-Passenger ID: BWI0521BG3
-Flight ID : YZO4444S
-Origin: MIA
-Destination: BKK
-Departure Time: 17:28:50
-Flight Length: 33 hours 47 minutes
-
 Passenger ID: LLZ3799PE2
 Flight ID : YZO4444S
 Origin: MIA
@@ -3101,13 +2709,6 @@ Destination: PEK
 Departure Time: 17:13:34
 Flight Length: 21 hours 42 minutes
 
-Passenger ID: WYU2010YH6
-Flight ID : XIL3623J
-Origin: LAX
-Destination: PEK
-Departure Time: 17:13:34
-Flight Length: 21 hours 42 minutes
-
 Passenger ID: CYJ0225CH5
 Flight ID : XIL3623J
 Origin: LAX
@@ -3166,13 +2767,6 @@ Flight Length: 21 hours 42 minutes
 
 ---- RPG3351U ----
 Passenger ID: SPR4484HA2
-Flight ID : RPG3351U
-Origin: CAN
-Destination: HND
-Departure Time: 16:59:29
-Flight Length: 6 hours 14 minutes
-
-Passenger ID: CXN7304ER2
 Flight ID : RPG3351U
 Origin: CAN
 Destination: HND
@@ -3271,27 +2865,6 @@ Destination: ATL
 Departure Time: 17:07:18
 Flight Length: 14 hours 37 minutes
 
-Passenger ID: UES9151GS3
-Flight ID : XOY7948U
-Origin: LHR
-Destination: ATL
-Departure Time: 17:07:18
-Flight Length: 14 hours 37 minutes
-
-Passenger ID: IEG9308EA4
-Flight ID : XOY7948U
-Origin: LHR
-Destination: ATL
-Departure Time: 17:07:18
-Flight Length: 14 hours 37 minutes
-
-Passenger ID: WYU2010YH4
-Flight ID : XOY7948U
-Origin: LHR
-Destination: ATL
-Departure Time: 17:07:18
-Flight Length: 14 hours 37 minutes
-
 Passenger ID: EZC9678QI6
 Flight ID : XOY7948U
 Origin: LHR
@@ -3362,44 +2935,35 @@ Destination: ATL
 Departure Time: 17:07:18
 Flight Length: 14 hours 37 minutes
 
----- PNE8178S ----
-Passenger ID: MXU9187YC5
-Flight ID : PNE8178S
-Origin: PEK
-Destination: DEN
-Departure Time: 17:13:29
-Flight Length: 22 hours 2 minutes
-
 ///////////////////////////////////////////////
 Passenger Count: 
-XXQ4064B: 24
-SOH3431A: 17
-PME8178S: 17
-MOO1786A: 12
-HUR0974O: 7
-GMO5938W: 24
-DAU2617A: 12
+XXQ4064B: 18
+SOH3431A: 15
+PME8178S: 14
+MOO1786A: 9
+HUR0974O: 4
+GMO5938W: 20
+DAU2617A: 9
 RUM0422W: 13
-ATT7791R: 13
-WPW9201U: 10
-MBA8071P: 15
-DKZ3042O: 11
-QHU1140O: 20
-ULZ8130D: 26
+ATT7791R: 10
+WPW9201U: 7
+MBA8071P: 14
+DKZ3042O: 10
+QHU1140O: 19
+ULZ8130D: 22
 VYU9214I: 15
-HZT2506M: 13
+HZT2506M: 12
 EWH6301Y: 9
-VYW5940P: 15
+VYW5940P: 14
 WSK1289Z: 20
 TMV7633W: 15
-FYL5866L: 19
-SQU6245R: 18
-BER7172M: 16
-JVY9791G: 20
-VDC9164W: 14
-KJR6646J: 23
-YZO4444S: 15
-XIL3623J: 10
-RPG3351U: 13
-XOY7948U: 15
-PNE8178S: 1
+FYL5866L: 12
+SQU6245R: 15
+BER7172M: 15
+JVY9791G: 19
+VDC9164W: 13
+KJR6646J: 22
+YZO4444S: 12
+XIL3623J: 9
+RPG3351U: 12
+XOY7948U: 12

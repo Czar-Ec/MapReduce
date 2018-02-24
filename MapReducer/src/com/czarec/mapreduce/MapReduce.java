@@ -197,17 +197,17 @@ public class MapReduce {
 			//empty the folders unless argument states otherwise
 			if(!(args.length == 0))
 			{
-				if(Integer.parseInt(args[3]) == 1)
+				if(args[3].equals("true"))
 				{
 					emptyDirectory(new File("res\\task1kv1"));
 					emptyDirectory(new File("res\\task1kv2"));
 				}
-				if(Integer.parseInt(args[4]) == 1)
+				if(args[3].equals("true"))
 				{
 					emptyDirectory(new File("res\\task2kv1"));
 					emptyDirectory(new File("res\\task2kv2"));
 				}
-				if(Integer.parseInt(args[5]) == 1)
+				if(args[3].equals("true"))
 				{
 					emptyDirectory(new File("res\\task3kv1"));
 					emptyDirectory(new File("res\\task3kv2"));
@@ -310,7 +310,7 @@ public class MapReduce {
 				if(a.getCode().equals(kv2.getKey()))
 				{
 					match = true;
-					fileOutput(kv2.getKey() + ": " + kv2.getValues().size() + " ", fw);
+					fileOutput(kv2.getKey() + ": " + kv2.getValues().size() + " \n", fw);
 				}
 			}
 			
@@ -328,7 +328,7 @@ public class MapReduce {
 		//output unmatched airports
 		for(Airport a : unmatchedAirports)
 		{
-			fileOutput(a.getCode() + " ", fw);
+			fileOutput(a.getCode() + " \n", fw);
 		}
 		
 		fileOutput("\n-----------------------", fw);
@@ -447,7 +447,6 @@ public class MapReduce {
 				e.printStackTrace();
 			}
 		}
-		
 		/////////////////////////////////////////////////////////////////////////////
 		/*
 		* Reduce
@@ -462,7 +461,7 @@ public class MapReduce {
 		for(KeyValuePair2 kv : r.getKV2())
 		{
 			//title for each flight is the flight id
-			fileOutput(kv.getKey() + ": " + kv.getValues().size(), fw);
+			fileOutput(kv.getKey() + ": " + kv.getValues().size() + "\n", fw);
 		}
 		
 	}
@@ -635,7 +634,7 @@ public class MapReduce {
 		//output to the file
 		try
 		{
-			fw.write(out + "\n");
+			fw.write(out);
 			System.out.print(out);
 		}
 		catch(IOException e)
